@@ -56,149 +56,60 @@
       "properties": {
         "type": {
           "title": "Type",
-          "default": "GA4MP",
+          "default": "ga4_web",
           "enum": [
-            "GA4MP"
-          ],
-          "type": "string"
-        },
-        "api_secret": {
-          "title": "Api Secret",
-          "type": "string"
-        },
-        "non_personalized_ads": {
-          "title": "Non Personalized Ads",
-          "default": false,
-          "type": "boolean"
-        },
-        "debug": {
-          "title": "Debug",
-          "default": false,
-          "type": "boolean"
-        },
-        "user_properties": {
-          "title": "User Properties",
-          "type": "object",
-          "additionalProperties": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "string"
-            }
-          }
-        },
-        "event_type": {
-          "title": "Event Type",
-          "enum": [
-            "gtag"
+            "ga4_web"
           ],
           "type": "string"
         },
         "measurement_id": {
-          "title": "Measurement Id",
+          "title": "Measurement ID",
+          "type": "string"
+        },
+        "api_secret": {
+          "title": "API Secret",
           "type": "string"
         }
       },
       "required": [
-        "api_secret",
-        "event_type",
-        "measurement_id"
+        "measurement_id",
+        "api_secret"
       ]
     },
-    "GA4App": {
-      "title": "GA4App",
+    "MetaCustomAudience": {
+      "title": "MetaCustomAudience",
       "type": "object",
       "properties": {
         "type": {
           "title": "Type",
-          "default": "GA4MP",
+          "default": "meta_custom_audience",
           "enum": [
-            "GA4MP"
+            "meta_custom_audience"
           ],
           "type": "string"
         },
-        "api_secret": {
-          "title": "Api Secret",
+        "access_token": {
+          "title": "Access Token",
           "type": "string"
         },
-        "non_personalized_ads": {
-          "title": "Non Personalized Ads",
-          "default": false,
-          "type": "boolean"
-        },
-        "debug": {
-          "title": "Debug",
-          "default": false,
-          "type": "boolean"
-        },
-        "user_properties": {
-          "title": "User Properties",
-          "type": "object",
-          "additionalProperties": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "string"
-            }
-          }
-        },
-        "event_type": {
-          "title": "Event Type",
-          "enum": [
-            "firebase"
-          ],
+        "app_secret": {
+          "title": "App Secret",
           "type": "string"
         },
-        "firebase_app_id": {
-          "title": "Firebase App Id",
+        "app_id": {
+          "title": "App ID",
+          "type": "string"
+        },
+        "audience_id": {
+          "title": "Audience ID",
           "type": "string"
         }
       },
       "required": [
-        "api_secret",
-        "event_type",
-        "firebase_app_id"
-      ]
-    },
-    "CustomerMatch": {
-      "title": "CustomerMatch",
-      "type": "object",
-      "properties": {
-        "developer_token": {
-          "title": "Developer Token",
-          "type": "string"
-        },
-        "client_id": {
-          "title": "Client Id",
-          "type": "string"
-        },
-        "client_secret": {
-          "title": "Client Secret",
-          "type": "string"
-        },
-        "audience_name": {
-          "title": "Audience Name",
-          "type": "string"
-        },
-        "hashed_in_place": {
-          "title": "Hashed In Place",
-          "default": false,
-          "type": "boolean"
-        },
-        "ingestion_type": {
-          "title": "Ingestion Type",
-          "enum": [
-            "Add",
-            "Remove",
-            "Replace"
-          ],
-          "type": "string"
-        }
-      },
-      "required": [
-        "developer_token",
-        "client_id",
-        "client_secret",
-        "audience_name",
-        "ingestion_type"
+        "access_token",
+        "app_secret",
+        "app_id",
+        "audience_id"
       ]
     },
     "Schemas": {
@@ -207,8 +118,8 @@
       "properties": {
         "sources": {
           "title": "Sources",
-          "type": "array",
-          "items": {
+          "type": "object",
+          "additionalProperties": {
             "anyOf": [
               {
                 "$ref": "#/definitions/LocalFile"
@@ -221,30 +132,19 @@
         },
         "destinations": {
           "title": "Destinations",
-          "type": "array",
-          "items": {
+          "type": "object",
+          "additionalProperties": {
             "anyOf": [
               {
-                "oneOf": [
-                  {
-                    "$ref": "#/definitions/GA4Web"
-                  },
-                  {
-                    "$ref": "#/definitions/GA4App"
-                  }
-                ]
+                "$ref": "#/definitions/GA4Web"
               },
               {
-                "$ref": "#/definitions/CustomerMatch"
+                "$ref": "#/definitions/MetaCustomAudience"
               }
             ]
           }
         }
-      },
-      "required": [
-        "sources",
-        "destinations"
-      ]
+      }
     }
   }
 }
