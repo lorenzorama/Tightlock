@@ -373,7 +373,7 @@ class Destination(TadauMixin):
   @staticmethod
   def schema() -> Optional[ProtocolSchema]:
     return ProtocolSchema(
-        "GA4MP",
+        "GA4MPOY",
         [
             ("api_secret", str, Field(
                 description="An API SECRET generated in the Google Analytics UI.")),
